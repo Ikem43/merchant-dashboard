@@ -57,7 +57,7 @@
                 <!-- Logo container-->
                 <div class="logo">
                     <!-- Image Logo -->
-                    <a href="index.html" class="logo">VENDEE DASHBOARD
+                    <a href="index.html" class="logo">OZZY SUPERMARKET
                     </a>
 
                 </div>
@@ -101,18 +101,18 @@
                 <div id="navigation">
                     <!-- Navigation Menu-->
                     <ul class="navigation-menu">
-                        <li class="has-submenu">
+                        <!-- <li class="has-submenu">
                             <a><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
-                        </li>
+                        </li> -->
                         <li class="has-submenu" onclick="product.loadProduct()">
                             <a><i class="fa fa-shopping-bag"></i> <span> Products </span> </a>
                         </li>
                         <li class="has-submenu" onclick="order.loadOrders()">
                             <a><i class="fa fa-shopping-cart"></i> <span> Orders </span> </a>
                         </li>
-                        <li class="has-submenu active" onclick="merchant.loadMerchant()">
+                        <!-- <li class="has-submenu active" onclick="merchant.loadMerchant()">
                             <a><i class="fa fa-user"></i> <span> Merchants </span> </a>
-                        </li>
+                        </li> -->
                         <li class="has-submenu" onclick="shopper.loadShoppers()">
                             <a><i class="fa fa-shopping-basket"></i> <span> Shoppers </span> </a>
                         </li>
@@ -127,6 +127,9 @@
                         </li>
                         <li class="has-submenu" onclick="category.loadCategory()">
                             <a><i class="fa fa-archive"></i> <span> Category </span> </a>
+                        </li>
+                        <li class="has-submenu" onclick="insight.loadInsight()">
+                            <a><i class="fa fa-dot-circle-o"></i> <span> Insight </span> </a>
                         </li>
                         <li class="has-submenu pull-right" onclick="project.doLogout()">
                             <a><i class="fa fa-sign-out"></i> <span> Logout </span> </a>
@@ -143,7 +146,7 @@
             <div></div>
             <div id="loginUiView" class="wrapper-page">
                 <div class="text-center">
-                    <a href="#" class="logo"><span>Vendee</span></a>
+                    <a href="#" class="logo"><span>Ozzy Supermarket</span></a>
                     <h5 class="text-muted mt-0 font-600">Admin Dashboard</h5>
                 </div>
                 <div class="m-t-40 card-box">
@@ -191,7 +194,7 @@
                 </div>
 
             </div>
-            <div id="merchantUIView" class="view">
+            <!-- <div id="merchantUIView" class="view">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-group pull-right m-t-20">
@@ -202,7 +205,6 @@
                         <h4 class="page-title">Merchants</h4>
                     </div>
                 </div>
-                <!-- end page title end breadcrumb -->
 
 
                 <div class="row">
@@ -229,12 +231,12 @@
                                 </table>
                             </div>
                         </div>
-                    </div><!-- end col -->
+                    </div>
 
                 </div>
-                <!-- merchant list ends-->
+                
 
-            </div> <!-- end container -->
+            </div>  -->
 
             <div id="categoryUIView" class="container-fluid">
                 <!-- Page-Title -->
@@ -262,12 +264,54 @@
                                     <thead>
                                         <tr>
                                             <th>SN</th>
-                                            <th>Company Name</th>
+                                            <th>Category</th>
                                             <th>Created By</th>
                                             <td>Action</td>
                                         </tr>
                                     </thead>
                                     <tbody id='categoryTable'>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                </div>
+            </div>
+            <div id="insightUIView" class="container-fluid">
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- <div class="btn-group pull-right m-t-20">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categorymodal">
+                                <i class="fa fa-plus"></i> Add Category
+                            </button>
+                        </div> -->
+                        <h4 class="page-title">Insight</h4>
+                    </div>
+                </div>
+                <!-- end page title end breadcrumb -->
+
+
+                <div class="row">
+                    <div class="col-12 mx-auto">
+                        <div class="card-box">
+
+                            <h6 class="header-title mt-0 m-b-30">Lost Request</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>Issue ID</th>
+                                            <th>Time</th>
+                                            <td>Requested Item</td>
+                                            <td>Status</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id='lostRequestTable'>
 
                                     </tbody>
                                 </table>
@@ -324,8 +368,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-group pull-right m-t-20">
-                            <button type="button" class="btn btn-primary" 
-                                onclick='order.exportOrderDataDelivery({ filename: "vendee-export-delivery-" + new Date().getTime() });'>
+                            <button type="button" class="btn btn-primary" onclick='order.exportOrderDataDelivery({ filename: "vendee-export-delivery-" + new Date().getTime() });'>
                                 <i class="fa fa-file-export"></i> Export : Orders for Delivery
                             </button>
                         </div>
@@ -532,6 +575,7 @@
                                             <th>Price</th>
                                             <th>Marchant Name</th>
                                             <th>Pickup Availability</th>
+                                            <th>Product Availability</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -1124,9 +1168,10 @@
                                 <div id='productPickup' class="form-group col-md-12">
 
                                 </div>
+                                <div id='productAvailable' class="form-group col-md-12">
+
+                                </div>
                                 <div id='productEditImage' class="form-group col-md-12">
-
-
                                 </div>
                                 <div id='productEditImageView' class='form-row'>
                                 </div>
@@ -1250,6 +1295,8 @@
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/waves.js"></script>
         <script src="assets/js/jquery.slimscroll.js"></script>
+        <script src="assets/js/moment.js"></script>
+
 
         <!-- KNOB JS -->
         <!--[if IE]>
@@ -1270,6 +1317,8 @@
         <!-- App js -->
         <script src="assets/js/jquery.core.js"></script>
         <script src="assets/js/jquery.app.js"></script>
+
+
 
         <!-- Page level plugin JavaScript
         <script src="assets/datatables/jquery.dataTables.js"></script>
@@ -1293,6 +1342,7 @@
         <script src="main/staff.js"></script>
         <script src="main/order.js"></script>
         <script src="main/driver.js"></script>
+        <script src="main/insight.js"></script>
         <script src="views/gsap/css.js"></script>
         <script src="views/gsap/scrollto.js"></script>
         <script src="views/gsap/easepack.js"></script>

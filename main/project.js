@@ -8,10 +8,10 @@ var project = {
     /*try {
       admin.start();
     } catch (e) {
-      views.start("merchantUIView", merchant.fetchMerchant());
+      views.start("productUIView", merchant.fetchMerchant());
     }*/
     if (localStorage.vendeeToken) {
-      views.start("merchantUIView", merchant.fetchMerchant());
+      views.start("productUIView", merchant.fetchMerchant());
       views.element("navbar-custom").className = " ";
     } else {
       views.start("loginUiView");
@@ -30,7 +30,7 @@ var project = {
       .then(function(response) {
         localStorage.setItem("vendeeToken", response.data.data.token);
         project.hideSmallBusy();
-        views.start("merchantUIView", merchant.fetchMerchant());
+        views.start("productUIView", merchant.fetchMerchant());
         views.element("navbar-custom").className = " ";
       })
       .catch(function(error) {

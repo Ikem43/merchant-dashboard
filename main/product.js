@@ -1,5 +1,5 @@
 var product = {
-  fetchProduct: function() {
+  fetchProduct: function () {
     project.showBusy();
     if (!events.categories) {
       category.quickFetchCategory();
@@ -12,7 +12,7 @@ var product = {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         if (events.categories !== null) {
           project.hideBusy();
@@ -26,26 +26,25 @@ var product = {
           list += `  <tr>
             <td>${index + 1}</td>
             <td>${
-              event.categoryID ? event.categoryID.categoryName : "null"
+            event.categoryID ? event.categoryID.categoryName : "null"
             }</td>
             <td>${event.productName}</td>
             <td>${event.price}</td>
             <td>${event.merchantID ? event.merchantID.name : "null"}</td>
-            <td><span class="badge ${
-              event.isPickupAvailable ? "badge-info" : "badge-danger"
-            }">${event.isPickupAvailable}</span></td>
+            <td><span class="badge ${ event.isPickupAvailable ? "badge-info" : "badge-danger"}">${event.isPickupAvailable}</span></td>
+            <td><span class="badge ${ event.isAvailable ? "badge-info" : "badge-danger"}">${event.isAvailable}</span></td>
             <td>
                 <div class="btn-group btn-group-sm" role="group">
                     <button type="button" class="btn btn-outline-info" data-toggle="modal" data-id=${
-                      event._id
-                    }
+            event._id
+            }
                         onclick="product.productDetails(this)">
                         <span class="fa fa-pencil" aria-hidden="true"></span>
                     </button>
                     <button type="button" class="btn btn-outline-danger" data-toggle="modal"
                         onclick="product.showDeleteProduct(this)" data-id=${
-                          event._id
-                        }>
+            event._id
+            }>
                         <span class="fa fa-trash" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -54,17 +53,17 @@ var product = {
         });
         views.element("productTable").innerHTML = list;
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   },
-  showDeleteProduct: function(target) {
+  showDeleteProduct: function (target) {
     $("#deleteproductmodal").modal("show");
     var id = target.getAttribute("data-id");
     console.log(id);
     events.selectedid = id;
   },
-  productDetails: function(target) {
+  productDetails: function (target) {
     $("#editproductmodal").modal("show");
     //views.element("outputimage").src = " ";
     var id = target.getAttribute("data-id");
@@ -79,22 +78,22 @@ var product = {
     events.list.forEach((event, index) => {
       options += ` <option value=${event._id} ${
         events.selected.merchantID._id === event._id ? "selected" : ""
-      }>${event.name}</option>
+        }>${event.name}</option>
           `;
     });
     var category = "";
     events.categories.forEach((event, index) => {
       category += ` <option value=${event._id} ${
         events.selected.categoryID._id === event._id ? "selected" : ""
-      }>${event.categoryName}</option>
+        }>${event.categoryName}</option>
           `;
     });
 
     let productName = `
      <label for="producttitle">Title</label>
      <input type="name" class="form-control" id="editproductitle" placeholder="Product Title" value='${
-       events.selected.productName
-     }'>
+      events.selected.productName
+      }'>
   `;
     let productprice = `
       <label for="productprice">Price</label>
@@ -103,37 +102,54 @@ var product = {
                       <div class="input-group-text">₦</div>
                   </div>
                   <input type="text" class="form-control" id="editproductprice" placeholder="Product Price" value='${
-                    events.selected.price
-                  }'>
+      events.selected.price
+      }'>
               </div>
       `;
-    let merchantName = `
-          <label for="marchantname">Marchant Name</label>
-              <select id="edmerchantname" class="form-control">
-                  ${options}
-              </select>
-      `;
-    let categoryName = `
-      <label for="marchantname">Category Name</label>
-          <select id="edmcategoryname" class="form-control">
-              ${category}
-          </select>
-  `;
+    // let merchantName = `
+    //       <label for="marchantname">Marchant Name</label>
+    //           <select id="edmerchantname" class="form-control">
+    //               ${options}
+    //           </select>
+    //   `;
+  //   let categoryName = `
+  //     <label for="marchantname">Category Name</label>
+  //         <select id="edmcategoryname" class="form-control">
+  //             ${category}
+  //         </select>
+  // `;
     let pickupavailable = `
       <label for="productPickupstatus"> Pickup Availability: </label>
               <div class="custom-control custom-radio custom-control-inline ">
               <input type="radio" name='raid' value='true' id='availableId' ${
-                events.selected.isPickupAvailable ? "checked" : ""
-              }>
+      events.selected.isPickupAvailable ? "checked" : ""
+      }>
                   <label class="label-cont" for="customRadioInline0">Available</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline custom-radio-danger">
               <input type="radio" name='raid' value='false' id='notavailableId' ${
-                events.selected.isPickupAvailable ? "" : "checked"
-              }>
+      events.selected.isPickupAvailable ? "" : "checked"
+      }>
                   <label class="label-cont" for="customRadioInline0-1">Not Available</label>
               </div>
       `;
+
+      let available = `
+      <label for="productAvailablestatus"> Product Availability: </label>
+              <div class="custom-control custom-radio custom-control-inline ">
+              <input type="radio" name='raidproductAvailable' value='true' id='productAvailableId' ${
+      events.selected.isAvailable ? "checked" : ""
+      }>
+                  <label class="label-cont" for="customRadioInlineProductAvailable">Available</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline custom-radio-danger">
+              <input type="radio" name='raidproductAvailable' value='false' id='productNotavailableId' ${
+      events.selected.isAvailable ? "" : "checked"
+      }>
+                  <label class="label-cont" for="customRadioInlineProductUnavailable">Not Available</label>
+              </div>
+      `;
+
     let imageFile = `
       <div class="custom-file col-md-12">
               <input type="file" class="custom-file-input" id="file" onchange='product.preview_image(event)' required>
@@ -142,20 +158,23 @@ var product = {
           </div>
       `;
     let imageview = `
+    <label class="label-cont">Preview</label>
       <img id='outputimage' style='width:250px;height:200px;margin-bottom:15px' accept="image/*" src=${"https://api.yourvendee.com/upload" +
-        events.selected.thumbnail} />
+      events.selected.thumbnail} />
   
       `;
 
     views.element("productName").innerHTML = productName;
     views.element("productPrice").innerHTML = productprice;
-    views.element("productmerchName").innerHTML = merchantName;
-    views.element("productcateditName").innerHTML = categoryName;
+    // views.element("productmerchName").innerHTML = merchantName;
+    // views.element("productcateditName").innerHTML = categoryName;
     views.element("productPickup").innerHTML = pickupavailable;
+    views.element("productAvailable").innerHTML = available;
     views.element("productEditImage").innerHTML = imageFile;
     views.element("productEditImageView").innerHTML = imageview;
+    
   },
-  showProductModal: function(target) {
+  showProductModal: function (target) {
     $("#productmodal").modal("show");
     var categories = "<option>--Choose Category--</option>";
     var options = "<option>--Choose Merchant--</option>";
@@ -188,7 +207,7 @@ var product = {
     views.element("crProductCategory").innerHTML = productCategory;
     views.element("productCreateImageView").innerHTML = imageview;
   },
-  editProduct: function() {
+  editProduct: function () {
     project.showSmallBusy();
     var e = views.element("edmerchantname");
     var f = views.element("edmcategoryname");
@@ -196,10 +215,8 @@ var product = {
 
     var name = views.element("editproductitle").value;
     var price = views.element("editproductprice").value;
-    var merchantid = e.options[e.selectedIndex].value;
-    var categoryid = f.options[f.selectedIndex].value;
-    var pickupavailable = document.querySelector('input[name="raid"]:checked')
-      .value;
+    var pickupavailable = document.querySelector('input[name="raid"]:checked').value;
+    var productavailable = document.querySelector('input[name="raidproductAvailable"]:checked').value;
 
     var formData = new FormData();
     if (imagefile.files.length !== 0) {
@@ -207,9 +224,8 @@ var product = {
     }
     formData.append("productName", name);
     formData.append("price", price);
-    formData.append("merchantID", merchantid);
-    formData.append("categoryID", categoryid);
     formData.append("isPickupAvailable", pickupavailable);
+    formData.append("isAvailable", productavailable);
     for (var value of formData.values()) {
       console.log(value);
     }
@@ -220,19 +236,19 @@ var product = {
           "Content-Type": "multipart/form-data"
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         project.hideSmallBusy();
         console.log(response);
         $("#editproductmodal").modal("hide");
         product.fetchProduct();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         project.hideSmallBusy();
         project.showError(error.response.data.message);
         console.log(error);
       });
   },
-  createProduct: function() {
+  createProduct: function () {
     project.showSmallBusy();
     var e = views.element("createproductmerchname");
     var f = views.element("createproductctcat");
@@ -267,6 +283,7 @@ var product = {
     formData.append("merchantID", merchantid);
     formData.append("categoryID", categoryid);
     formData.append("isPickupAvailable", pickupavailable);
+    formData.append("isAvailable", true);
     for (var value of formData.values()) {
       console.log(value);
     }
@@ -277,37 +294,37 @@ var product = {
           "Content-Type": "multipart/form-data"
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         project.hideSmallBusy();
         console.log(response);
         $("#productmodal").modal("hide");
         product.fetchProduct();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         project.hideSmallBusy();
         project.showError(error.response.data.message);
         console.log(error);
       });
   },
-  preview_image: function(event) {
+  preview_image: function (event) {
     console.log(event);
     var reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = function () {
       var output = document.getElementById("outputimage");
       output.src = reader.result;
     };
     reader.readAsDataURL(event.srcElement.files[0]);
   },
-  preview_image_cr: function(event) {
+  preview_image_cr: function (event) {
     console.log(event);
     var reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = function () {
       var output = document.getElementById("croutputimage");
       output.src = reader.result;
     };
     reader.readAsDataURL(event.srcElement.files[0]);
   },
-  deleteProduct: function() {
+  deleteProduct: function () {
     project.showSmallBusy();
     axios
       .delete(app.API + `api/products/${events.selectedid}`, {
@@ -315,20 +332,20 @@ var product = {
           Authorization: "Bearer " + localStorage.getItem("vendeeToken")
         }
       })
-      .then(function(response) {
+      .then(function (response) {
         project.hideSmallBusy();
         console.log(response);
         $("#deleteproductmodal").modal("hide");
         product.fetchProduct();
       })
-      .catch(function(error) {
+      .catch(function (error) {
         project.hideSmallBusy();
         project.showError(error.response.data.message);
         console.log(error);
       });
   },
-  loadProduct: function() {
-    views.impose("productUIView", function() {
+  loadProduct: function () {
+    views.impose("productUIView", function () {
       product.fetchProduct();
     });
   }
