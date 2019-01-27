@@ -1,10 +1,66 @@
 var product = {
+  allMerchants: [],
+  allCategories: [],
+  fetchCategory: function () {
+    project.showBusy();
+    axios
+      .get(app.API + "api/category", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
+        }
+      })
+      .then(function (response) {
+        console.log("this is the response");
+        console.log(response);
+
+        project.hideBusy();
+
+        product.allCategories = response.data.data;
+
+        if (response.status !== 200) return app.alert(response.status);
+
+        //  events.categories = response.data.data;
+
+        //  var list = "";
+
+        // views.element("categoryTable").innerHTML = list;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
+
+  fetchMerchant: function () {
+
+    project.showBusy();
+    axios
+      .get(app.API + "api/merchants", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("vendeeToken")
+        }
+      })
+      .then(function (response) {
+        project.hideBusy();
+        console.log("response.data");
+        console.log(response.data);
+        product.allMerchants = response.data.data;
+        if (response.status !== 200) return app.alert(response.status);
+
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
   fetchProduct: function () {
     project.showBusy();
-    if (!events.categories) {
-      category.quickFetchCategory();
-      console.log("fetching category");
-    }
+    // if (!events.categories) {
+    //  // category.quickFetchCategory();
+    //   console.log("fetching category");
+    // }
+
+    product.fetchCategory();
+    product.fetchMerchant();
 
     axios
       .get(app.API + "api/products", {
@@ -74,20 +130,20 @@ var product = {
         break;
       }
     }
-    var options = "";
-    events.list.forEach((event, index) => {
-      options += ` <option value=${event._id} ${
-        events.selected.merchantID._id === event._id ? "selected" : ""
-        }>${event.name}</option>
-          `;
-    });
-    var category = "";
-    events.categories.forEach((event, index) => {
-      category += ` <option value=${event._id} ${
-        events.selected.categoryID._id === event._id ? "selected" : ""
-        }>${event.categoryName}</option>
-          `;
-    });
+    // var options = "";
+    // events.list.forEach((event, index) => {
+    //   options += ` <option value=${event._id} ${
+    //     events.selected.merchantID._id === event._id ? "selected" : ""
+    //     }>${event.name}</option>
+    //       `;
+    // });
+    // var category = "";
+    // events.categories.forEach((event, index) => {
+    //   category += ` <option value=${event._id} ${
+    //     events.selected.categoryID._id === event._id ? "selected" : ""
+    //     }>${event.categoryName}</option>
+    //       `;
+    // });
 
     let productName = `
      <label for="producttitle">Title</label>
@@ -112,12 +168,12 @@ var product = {
     //               ${options}
     //           </select>
     //   `;
-  //   let categoryName = `
-  //     <label for="marchantname">Category Name</label>
-  //         <select id="edmcategoryname" class="form-control">
-  //             ${category}
-  //         </select>
-  // `;
+    //   let categoryName = `
+    //     <label for="marchantname">Category Name</label>
+    //         <select id="edmcategoryname" class="form-control">
+    //             ${category}
+    //         </select>
+    // `;
     let pickupavailable = `
       <label for="productPickupstatus"> Pickup Availability: </label>
               <div class="custom-control custom-radio custom-control-inline ">
@@ -134,7 +190,7 @@ var product = {
               </div>
       `;
 
-      let available = `
+    let available = `
       <label for="productAvailablestatus"> Product Availability: </label>
               <div class="custom-control custom-radio custom-control-inline ">
               <input type="radio" name='raidproductAvailable' value='true' id='productAvailableId' ${
@@ -172,20 +228,24 @@ var product = {
     views.element("productAvailable").innerHTML = available;
     views.element("productEditImage").innerHTML = imageFile;
     views.element("productEditImageView").innerHTML = imageview;
-    
+
   },
   showProductModal: function (target) {
     $("#productmodal").modal("show");
     var categories = "<option>--Choose Category--</option>";
     var options = "<option>--Choose Merchant--</option>";
-    events.categories.forEach((event, index) => {
+    product.allCategories.forEach((event, index) => {
       categories += ` <option value=${event._id}>${event.categoryName}</option>
           `;
     });
-    events.list.forEach((event, index) => {
+    product.allMerchants.forEach((event, index) => {
       options += ` <option value=${event._id}>${event.name}</option>
           `;
     });
+
+    console.log("product.allMerchants");
+    console.log(product.allMerchants);
+
     let productCategory = `
       <label for="createproductcat">Choose Category</label>
       <select id="createproductctcat" class="form-control">
