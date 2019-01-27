@@ -17,7 +17,8 @@ var order = {
         }
       })
       .then(function (response) {
-
+        console.log("All Orders");
+        console.log(response.data.data);
         order.allOrders = response.data.data;
         project.hideBusy();
         if (response.status !== 200) return app.alert(response.status);
@@ -31,6 +32,7 @@ var order = {
           var parcelID = id.slice(18);
           var driverRefNumberTable = "";
           var shippingMethodTable = "";
+          var shopperRefNumberTable = "";
 
           if (response.data.data[index].driverReferenceNumber === 0) {
             driverRefNumberTable = "NOT ASSIGNED"
@@ -44,14 +46,24 @@ var order = {
             shippingMethodTable = response.data.data[index].deliveryMethod;
           }
 
+          if (response.data.data[index].shopperReferenceNumber === 0) {
+            shopperRefNumberTable = "NOT ASSIGNED"
+          } else {
+            shopperRefNumberTable = response.data.data[index].shopperReferenceNumber;
+          }
+
           list += `<tr>
           <td>${index + 1}</td>
           <td onClick=order.showOrderDetailsModal(this) class="table-link" data-index=${index}>${"#"}${parcelID}</td>
-          <td>${response.data.data[index].customerID.firstname + " " + response.data.data[index].customerID.lastname}</td>
+         <!-- <td>${response.data.data[index].customerID.firstname + " " + response.data.data[index].customerID.lastname}</td> -->
+         <td>${response.data.data[index].customerID.email}</td> 
           <td>${response.data.data[index].customerID.phoneNumber}</td>
           <td>${response.data.data[index].customerID.address}</td>
           <td>${shippingMethodTable}</td>
+          <td>${response.data.data[index].deliveryTime}</td>
           <td>${driverRefNumberTable}</td>
+        <!--  <td>${shopperRefNumberTable}</td> -->
+         <!-- <td>${response.data.data[index].total}</td> -->
             <td>${response.data.data[index].status}</td>
           <td>
               <div class="btn-group btn-group-sm" role="group">
@@ -137,11 +149,12 @@ var order = {
 
       dataObject = {
         Parcel_ID: parcelID,
-        Customer_Name: dataOrderDeliveryArray[index].customerID.firstname + " " + dataOrderDeliveryArray[index].customerID.firstname,
+        Time_Slot: dataOrderDeliveryArray[index].deliveryTime,
+        Email: dataOrderDeliveryArray[index].customerID.email,
         Phonenumber: dataOrderDeliveryArray[index].customerID.phoneNumber,
         Address: dataOrderDeliveryArray[index].customerID.address,
         Shipping_Method: shippingMethodTable,
-        Order_Status: dataOrderDeliveryArray[index].status
+        // Order_Status: ""
       }
 
       dataArray.push(dataObject);
@@ -172,17 +185,24 @@ var order = {
 
     var index = target.getAttribute("data-index");
     var productsArray = order.allOrders[index].productID;
+    var total = order.allOrders[index].total;
     var orderProductList = "";
+    var orderDetailTemplate = "";
 
     for (let index = 0; index < productsArray.length; index++) {
+
+      // orderTotal = `<p><b>Total :</b> ${total}</p>`;
 
       orderProductList += `<tr>
      <td>${index + 1}</td>
      <td>${productsArray[index].productName}</td>
      <td>${productsArray[index].quantity}</td>
+     <td>NGN ${productsArray[index].price}.00</td>
       </tr>`;
 
     }
+
+    // orderDetailTemplate = orderTotal + orderProductList;
 
     views.element("orderProductsTable").innerHTML = orderProductList;
 
@@ -209,7 +229,8 @@ var order = {
         <option value="PROCESSING">PROCESSING</option>
         <option value="READY">READY</option>
         <option value="IN_TRANSIT">IN TRANSIT</option>
-        <option value="OUT_OF_STOCK">OUT OF STOCK</option>
+        <!-- <option value="OUT_OF_STOCK">OUT OF STOCK</option> -->
+        <option value="DELIVERED">DELIVERED</option>
         <option value="DELIVERY_FAILED">DELIVERY FAILED</option>
         </select>
         </div>

@@ -29,7 +29,7 @@ var shopper = {
             <td>${event.lastname}</td>
             <td>${event.phoneNumber}</td>
             <td>${event.company}</td>
-            <td>
+           <!-- <td>
                 <div class="btn-group btn-group-sm" role="group">
                     <button  onClick=shopper.shopperDetails(this) type="button" class="btn btn-outline-info" data-toggle="modal"
                          data-id=${event._id}>
@@ -40,7 +40,7 @@ var shopper = {
                         <span class="fa fa-trash" aria-hidden="true"></span>
                     </button>
                 </div>
-            </td>
+            </td> -->
         </tr>`;
         });
         views.element("shopperTable").innerHTML = list;

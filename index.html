@@ -57,7 +57,7 @@
                 <!-- Logo container-->
                 <div class="logo">
                     <!-- Image Logo -->
-                    <a href="index.html" class="logo">OZZY SUPERMARKET
+                    <a href="index.html" class="logo">MATTORIS SUPERMARKET
                     </a>
 
                 </div>
@@ -104,9 +104,9 @@
                         <!-- <li class="has-submenu">
                             <a><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                         </li> -->
-                        <li class="has-submenu" onclick="product.loadProduct()">
+                        <!-- <li class="has-submenu" onclick="product.loadProduct()">
                             <a><i class="fa fa-shopping-bag"></i> <span> Products </span> </a>
-                        </li>
+                        </li> -->
                         <li class="has-submenu" onclick="order.loadOrders()">
                             <a><i class="fa fa-shopping-cart"></i> <span> Orders </span> </a>
                         </li>
@@ -116,18 +116,18 @@
                         <li class="has-submenu" onclick="shopper.loadShoppers()">
                             <a><i class="fa fa-shopping-basket"></i> <span> Shoppers </span> </a>
                         </li>
-                        <li class="has-submenu" onclick="courier.loadCouriers()">
+                        <!-- <li class="has-submenu" onclick="courier.loadCouriers()">
                             <a><i class="fa fa-truck"></i> <span> Couriers </span> </a>
-                        </li>
+                        </li> -->
                         <li class="has-submenu" onclick="driver.loadDrivers()">
                             <a><i class="fa fa-users"></i> <span> Drivers </span> </a>
                         </li>
-                        <li class="has-submenu" onclick="staff.loadStaffs()">
+                        <!-- <li class="has-submenu" onclick="staff.loadStaffs()">
                             <a><i class="fa fa-users"></i> <span> Staffs </span> </a>
-                        </li>
-                        <li class="has-submenu" onclick="category.loadCategory()">
+                        </li> -->
+                        <!-- <li class="has-submenu" onclick="category.loadCategory()">
                             <a><i class="fa fa-archive"></i> <span> Category </span> </a>
-                        </li>
+                        </li> -->
                         <li class="has-submenu" onclick="insight.loadInsight()">
                             <a><i class="fa fa-dot-circle-o"></i> <span> Insight </span> </a>
                         </li>
@@ -146,7 +146,7 @@
             <div></div>
             <div id="loginUiView" class="wrapper-page">
                 <div class="text-center">
-                    <a href="#" class="logo"><span>Ozzy Supermarket</span></a>
+                    <a href="#" class="logo"><span>Mattoris Supermarket</span></a>
                     <h5 class="text-muted mt-0 font-600">Admin Dashboard</h5>
                 </div>
                 <div class="m-t-40 card-box">
@@ -308,7 +308,7 @@
                                             <th>Issue ID</th>
                                             <th>Time</th>
                                             <td>Requested Item</td>
-                                            <td>Status</td>
+                                            <!-- <td>Status</td> -->
                                         </tr>
                                     </thead>
                                     <tbody id='lostRequestTable'>
@@ -400,12 +400,15 @@
                                             <!-- <th>Product Name</th> -->
                                             <!-- <th>Quantity</th> -->
                                             <th>Parcel ID</th>
-                                            <th>Customer Name</th>
-                                            <th>Phonenumber </th>
+                                            <th>Email</th>
+                                            <th>Phone Number </th>
                                             <th>Address </th>
                                             <th>Shipping Method</th>
-                                            <th>Driver Ref Number</th>
-                                            <th>Order Status </th>
+                                            <th>Time Slot</th>
+                                            <th>Driver ID</th>
+                                            <!-- <th>Shopper ID</th> -->
+                                            <!-- <th>Amount </th> -->
+                                            <th>Status </th>
                                             <td>Action</td>
                                         </tr>
                                     </thead>
@@ -464,11 +467,11 @@
                 <!-- Page-Title -->
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="btn-group pull-right m-t-20">
+                        <!-- <div class="btn-group pull-right m-t-20">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#drivermodal">
                                 <i class="fa fa-plus"></i> Add Drivers
                             </button>
-                        </div>
+                        </div> -->
                         <h4 class="page-title">Drivers</h4>
                     </div>
                 </div>
@@ -490,7 +493,7 @@
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Phone Number</th>
-                                            <td>Action</td>
+                                            <!-- <td>Action</td> -->
                                         </tr>
                                     </thead>
                                     <tbody id='driverTable'>
@@ -508,9 +511,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-group pull-right m-t-20">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#shoppermodal">
+                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#shoppermodal">
                                 <i class="fa fa-plus"></i> Add Shoppers
-                            </button>
+                            </button> -->
                         </div>
                         <h4 class="page-title">Shoppers</h4>
                     </div>
@@ -534,7 +537,7 @@
                                             <th>Last Name</th>
                                             <th>Phone Number</th>
                                             <th>Company Name</th>
-                                            <td>Action</td>
+                                            <!-- <td>Action</td> -->
                                         </tr>
                                     </thead>
                                     <tbody id='shopperTable'>
@@ -799,6 +802,7 @@
                                         <th>SN</th>
                                         <th>Product Name</th>
                                         <th>Quantity </th>
+                                        <th>Price</th>
                                     </tr>
                                 </thead>
                                 <tbody id='orderProductsTable'>

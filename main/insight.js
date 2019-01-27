@@ -21,7 +21,7 @@ var insight = {
               <td>${insight.getIssueID(event._id)}</td>
               <td>${insight.formatTime(event.createdAt)}</td>
               <td>${event.searchedItem}</td>
-              <td>${event.status}</td>
+              <!-- <td>${event.status}</td> -->
           </tr>`;
                 });
                 views.element("lostRequestTable").innerHTML = list;

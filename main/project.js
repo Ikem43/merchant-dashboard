@@ -11,7 +11,7 @@ var project = {
       views.start("insightUIView", merchant.fetchMerchant());
     }*/
     if (localStorage.vendeeToken) {
-      views.start("insightUIView", merchant.fetchMerchant());
+      views.start("insightUIView", insight.fetchInsight());
       views.element("navbar-custom").className = " ";
     } else {
       views.start("loginUiView");
@@ -30,7 +30,7 @@ var project = {
       .then(function(response) {
         localStorage.setItem("vendeeToken", response.data.data.token);
         project.hideSmallBusy();
-        views.start("insightUIView", merchant.fetchMerchant());
+        views.start("insightUIView", insight.fetchInsight());
         views.element("navbar-custom").className = " ";
       })
       .catch(function(error) {
