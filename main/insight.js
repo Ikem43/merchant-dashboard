@@ -20,6 +20,8 @@ var insight = {
               <td>${index + 1}</td>
               <td>${insight.getIssueID(event._id)}</td>
               <td>${insight.formatTime(event.createdAt)}</td>
+              <td>${event.email}</td>
+              <td>${event.phoneNumber}</td>
               <td>${event.searchedItem}</td>
               <!-- <td>${event.status}</td> -->
           </tr>`;
